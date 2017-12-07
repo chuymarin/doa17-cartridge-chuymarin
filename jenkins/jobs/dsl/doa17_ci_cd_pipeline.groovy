@@ -17,7 +17,7 @@ def doa17ApplicationTest = freeStyleJob(projectFolderName + "/DOA17_Application_
 def doa17CodeDeployProduction = freeStyleJob(projectFolderName + "/DOA17_Code_Deploy_Production")
 
 // DOA17_CI_CD_Pipeline
-doa17EnvironmentPipeline.with{
+doa17CICDPipeline.with{
     title('DOA17 CI CD Pipeline')
     displayedBuilds(5)
     selectedJob(projectFolderName + "/DOA17_Application_Repository")
