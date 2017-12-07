@@ -46,13 +46,16 @@ doa17InfrastructureRepository.with{
   }
   label("docker")
   scm{
-     git{
-       remote{
-         url(infrastructureRepository)
-         credentials("adop-jenkins-master")
-       }
-       branch("*/master")
-     }
+    git{
+      remote{
+        url(infrastructureRepository)
+        credentials("adop-jenkins-master")
+      }
+      extensions {
+        relativeTargetDirectory('infrastructure')
+      }
+      branch("*/master")
+    }
   }
   publishers{
     archiveArtifacts("**/*")
