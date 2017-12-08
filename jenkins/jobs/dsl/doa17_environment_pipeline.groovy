@@ -72,8 +72,7 @@ aws cloudformation wait stack-create-complete --stack-name DevopsWorkshop-${ENVI
 echo "[INFO] DevopsWorkshop-${ENVIRONMENT_NAME} Stack Created"
 
 set -x'''.stripMargin()
-      )
-    }
+    )
   }
   publishers{
     downstreamParameterized{
