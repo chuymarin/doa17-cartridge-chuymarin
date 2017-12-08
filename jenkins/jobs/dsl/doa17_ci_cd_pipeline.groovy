@@ -58,6 +58,7 @@ echo "[INFO] Default region is set to $AWS_DEFAULT_REGION"
 
 echo "[INFO] Building Application Code"
 aws codebuild start-build --project-name ${ENVIRONMENT_NAME}-project
+sleep 1m
 
 echo "[INFO] Getting Code Build eTAG"
 BUILD_ETAG=$(aws s3api head-object --bucket ${S3_BUCKET} --key WebAppOutputArtifact.zip)
@@ -154,6 +155,10 @@ doa17CodeDeployProduction.with{
     }
     shell('''
 set +x
+
+# aws --version
+# pip install --upgrade awscli
+# aws --version
 
 export AWS_DEFAULT_REGION=$AWS_REGION
 echo "[INFO] Default region is set to $AWS_DEFAULT_REGION"
