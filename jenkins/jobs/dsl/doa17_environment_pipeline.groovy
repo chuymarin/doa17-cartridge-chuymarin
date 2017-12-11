@@ -71,6 +71,9 @@ echo "[INFO] Wating for DevopsWorkshop-${ENVIRONMENT_NAME} Stack"
 aws cloudformation wait stack-create-complete --stack-name DevopsWorkshop-${ENVIRONMENT_NAME}
 echo "[INFO] DevopsWorkshop-${ENVIRONMENT_NAME} Stack Created"
 
+echo "[INFO] Creating Code Build Project"
+aws codebuild create-project --cli-input-json file://${WORKSPACE}/create-project.json
+
 set -x'''.stripMargin()
     )
   }
@@ -207,8 +210,7 @@ export AWS_DEFAULT_REGION=$AWS_REGION
 echo "[INFO] Default region is set to $AWS_DEFAULT_REGION"
 
 echo "[INFO] Creating Code Deploy Deployment Group ${ENVIRONMENT_NAME}-ProdWebApp"
-aws deploy create-deployment-group --application-name ${ENVIRONMENT_NAME}-WebApp  --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name ${ENVIRONMENT_NAME}-ProdWebApp --ec2-tag-filters Key=Name,Value=${ENVIRONMENT_NAME}-DevWebApp,Type=KEY_AND_VALUE --service-role-arn ${CODE_DEPLOY_ARN}
-
+aws deploy create-deployment-group --application-name ${ENVIRONMENT_NAME}-WebApp  --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name ${ENVIRONMENT_NAME}-ProdWebApp --ec2-tag-filters Key=Name,Value=${ENVIRONMENT_NAME}-ProdWebApp,Type=KEY_AND_VALUE --service-role-arn ${CODE_DEPLOY_ARN}
 
 set -x'''.stripMargin()
     )

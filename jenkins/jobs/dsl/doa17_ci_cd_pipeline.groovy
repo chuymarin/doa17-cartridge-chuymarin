@@ -64,6 +64,9 @@ echo "[INFO] Getting Code Build eTAG"
 BUILD_ETAG=$(aws s3api head-object --bucket doa17-chuymarin --key WebAppOutputArtifact.zip --query \'ETag\' --output text)
 echo "BUILD_ETAG=$BUILD_ETAG" >> properties_file.txt
 
+echo "[INFO] Registering Revision for eTAG ${BUILD_ETAG}"
+aws deploy register-application-revision --application-name ${ENVIRONMENT_NAME}-WebApp --description "Revison ${BUILD_NUMBER}" --s3-location bucket=${S3_BUCKET},key=WebAppOutputArtifact.zip,bundleType=zip,eTag=${BUILD_ETAG}
+
 set -x'''.stripMargin()
     )
   }
@@ -165,7 +168,6 @@ echo "[INFO] Default region is set to $AWS_DEFAULT_REGION"
 
 echo "[INFO] Deploying Application to ${ENVIRONMENT_NAME}-ProdWebApp"
 aws deploy create-deployment --application-name ${ENVIRONMENT_NAME}-WebApp --deployment-group-name ${ENVIRONMENT_NAME}-ProdWebApp --description "Applicacion Build ${BUILD_NUMBER}" --s3-location bucket=${S3_BUCKET},key=WebAppOutputArtifact.zip,bundleType=zip,eTag=${BUILD_ETAG}
-
 
 set -x'''.stripMargin()
     )
